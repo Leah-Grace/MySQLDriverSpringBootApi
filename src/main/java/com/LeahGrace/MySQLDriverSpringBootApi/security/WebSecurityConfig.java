@@ -1,6 +1,7 @@
 package com.LeahGrace.MySQLDriverSpringBootApi.security;
 
 import com.LeahGrace.MySQLDriverSpringBootApi.security.jwt.AuthEntryPointJwt;
+import com.LeahGrace.MySQLDriverSpringBootApi.security.jwt.AuthTokenFilter;
 import com.LeahGrace.MySQLDriverSpringBootApi.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

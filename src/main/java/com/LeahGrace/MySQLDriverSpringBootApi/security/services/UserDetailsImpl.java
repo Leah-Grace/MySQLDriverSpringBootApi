@@ -91,3 +91,7 @@ public class UserDetailsImpl implements UserDetails {
         return Objects.equals(id, user.id);
     }
 }
+
+/*
+Granted Authority is usually a large, complex object that is  most likely a tokenized format object
+ */
