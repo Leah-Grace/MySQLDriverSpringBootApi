@@ -50,6 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+
+    @Autowired
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
