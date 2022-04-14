@@ -18,22 +18,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.swing.*;
 import java.io.IOException;
 
-public class AuthTokenFilter extends OncePerRequestFilter {
+public class AuthTokenFilter extends OncePerRequestFilter {  //runs on public(non-secured) and private routes
 
     @Autowired
     private JwtUtils jwtUtils;   //validates decrpts and encrypts token
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;  //uses our defined UserDetailsServiceImpl
 
     private static Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            String jwt = parseJwt(request);  //must decode the token received in the request then we want to find out who the user is
+            String jwt = parseJwt(request);  //must decode the token received in the request then we want to find out who the user is. Evaluate the data for accuracy/validity
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-                String username = jwtUtils.getUsernameFromJwtToken(jwt);
+                String username = jwtUtils.getUsernameFromJwtToken(jwt); //if the request is valid then extract the username from JwtUtils
                 //set up Spring security validation
                 //check user authentication token  with filter otherwise spring will fail
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -45,7 +45,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             }
 
             } catch (Exception e) {
-            logger.error("Cannot set user authentication {}", e);
+            logger.error("Cannot set user authentication {}", e.getMessage());
         }
 
         filterChain.doFilter(request, response);

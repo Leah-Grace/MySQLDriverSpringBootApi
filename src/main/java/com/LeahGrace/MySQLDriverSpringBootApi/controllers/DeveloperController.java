@@ -18,8 +18,7 @@ public class DeveloperController {
     private DeveloperRepository repository;
 
     @GetMapping
-    public @ResponseBody
-    List<Developer> getDevelopers() {
+    public @ResponseBody List<Developer> getDevelopers() {
         return repository.findAll();
     }
 
