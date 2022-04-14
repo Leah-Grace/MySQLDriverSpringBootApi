@@ -13,8 +13,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; //TODO: IS THIS CORRECT? - - 1:12:00 SPRINGBOOT 15
+import org.springframework.security.crypto.password.PasswordEncoder;  //TODO: IS THIS CORRECT?
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,14 +23,14 @@ import org.springframework.web.client.RestTemplate;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private UserDetailsServiceImpl userDetailsService; //Implements the userDetailService we created. overrides the default
 
     @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
+    private AuthEntryPointJwt unauthorizedHandler; //where unauthorized users are handled
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter(){
-        return new AuthTokenFilter();
+        return new AuthTokenFilter(); //Runs a filter on all requests to all routes. Saves you from having to write a method/procedure on each route. This does checks on the data before it hits the route. The filter can be apart of the filterchain that manipoulates the data of every request before it hits the route.
     }
 
     @Override
@@ -58,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception { //// .cors() adds global cross origin to all routes
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
@@ -69,6 +69,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
-    }
+    } // this function is overriding the functionality of Spring Web.
 
 }

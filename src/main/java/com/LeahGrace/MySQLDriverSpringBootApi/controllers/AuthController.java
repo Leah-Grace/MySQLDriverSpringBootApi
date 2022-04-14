@@ -76,7 +76,6 @@ public class AuthController {
         }
 
         //create new account
-
         User user = new User(signupRequest.getUsername(), encoder.encode(signupRequest.getPassword())); //encoder is in websecurityconfig
 
         Set<String> strRoles = signupRequest.getRoles();

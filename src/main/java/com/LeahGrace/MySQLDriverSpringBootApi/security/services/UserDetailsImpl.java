@@ -12,16 +12,16 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
-    private static final long serialVersionUID = 1L;  //Not showing up as field
+    private static final long serialVersionUID = 1L;  //Required for Spring Security //Not showing up as field
 
     private Long id;
 
     private String username;
 
     @JsonIgnore
-    private String password;
+    private String password; //We have no intention to send this info but if it is eve
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private Collection<? extends GrantedAuthority> authorities; //Must be a collection of objects that qualify as granted authorities class or children of granted authorities class
 
     public UserDetailsImpl(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
@@ -30,10 +30,10 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserDetailsImpl build(User user) {
+    public static UserDetailsImpl build(User user) {  //use your own User as defined in User class, override the user class provided by Springboot
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());  //Creatrs list of granted authority for Spring - Creates collection then turns it into a list of Authorities  // pulls a list of roles, goes through userdeatilsauthorities list to determine what the user has access to
         return new UserDetailsImpl(
                 user.getId(),
                 user.getUsername(),
@@ -81,7 +81,7 @@ public class UserDetailsImpl implements UserDetails {
         return authorities;
     }
 
-    @Override
+    @Override  //override with this specific evaluation of two objects for equivalency
     public boolean equals(Object obj) {
         if (this == obj)
             return true;

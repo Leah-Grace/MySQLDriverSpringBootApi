@@ -8,10 +8,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service // If its not a service its a component
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    UserRepository userRepository;
+    UserRepository userRepository; // Import your user repository
 /*
     @Override
     public UserDetails loadUsersByUsername(String username) throws UsernameNotFoundException {
@@ -29,5 +29,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         //we have a user
         return UserDetailsImpl.build(user);
-    }
+    } //Tell Springboot how to find your users, pass the UsernameNotFoundException, use UserDetailsImpl to build the userdetails according to the UserRepository
 }
