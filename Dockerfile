@@ -1,5 +1,7 @@
 FROM openjdk:17
-COPY . /src/main/java/com.LeahGrace/MySQLDriverSpringBootApi
-WORKDIR /src/main/java/com.LeahGrace/MySQLDriverSpringBootApi
-RUN javac MySqlDriverSpringBootApiApplication.java
-CMD ["MySqlDriverSpringBootApiApplication", "Main"]
+VOLUME /tmp
+RUN gradle clean bootJar
+RUN ls -l /build-workspace/build/libs/
+ARG JAR_FILE
+COPY ${JAR_FILE} MySQLDriverSpringBootApi.jar
+ENTRYPOINT ["java", "-jar", "/MySQLDriverSpringBootApi.jar"]
