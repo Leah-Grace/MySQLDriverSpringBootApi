@@ -1,7 +1,6 @@
 FROM openjdk:17
 VOLUME /tmp
-RUN gradle clean bootJar
-RUN ls -l /build-workspace/build/libs/
 ARG JAR_FILE
-COPY ${JAR_FILE} MySQLDriverSpringBootApi.jar
-ENTRYPOINT ["java", "-jar", "/MySQLDriverSpringBootApi.jar"]
+COPY ${JAR_FILE} mysqldriverspringbootapi.jar
+ENTRYPOINT ["java", "-jar", "build/libs/MySQLDriverSpringBootApi-0.0.1-SNAPSHOT.jar"]
+
